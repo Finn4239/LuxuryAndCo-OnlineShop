@@ -1,0 +1,115 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Master>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Model.Value("homepageName", fallback: Fallback.ToAncestors) - @Model.Value("pageTitle")</title>
+    <script src="https://cdn.jsdelivr.net/npm/@@tailwindcss/browser@4"></script>
+  </head>
+
+  <script></script>
+
+  <body>
+    <nav 
+      class="
+        flex
+        "
+    >
+      <div class="w-full">
+        <h1>@Model.Value("productName", fallback: Fallback.ToAncestors)</h1>
+      </div>
+
+      <div>
+        <ul class="flex w-full">
+          <li><a href="/">HOME</a></li>
+          <li><a href="/about">ABOUT</a></li>
+          <li><a href="/buy">BUY</a></li>
+        </ul>
+      </div>
+
+      <div class="flex justify-end items-center w-full">
+        <i class="material-symbols-outlined">shopping_cart</i>
+      </div>
+    </nav>
+
+    <main>
+      @RenderBody()
+    </main>
+
+    <footer>
+      <div id="footer-content">
+        This is a footer
+      </div>
+    </footer>
+  </body>
+
+  <style>
+    body {
+      margin: 1rem;
+    }
+
+    nav {
+      padding: 1rem;
+      font-size: 1.5rem;
+
+      border: solid;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-right-width: 0;
+      border-bottom-width: .3rem;
+      border-color: black;
+
+      h1, ul li, i {
+        cursor: pointer;
+        margin-right: 1rem;
+        margin-left: 1rem;
+
+        transition-property: opacity;
+        transition-duration: .25s;
+
+        &:hover {
+          opacity: 60%;
+        }
+      }
+
+      ul li {
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+    }
+
+    main {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    footer {
+      border: solid;
+      border-top-width: .3rem;
+      border-bottom-width: 0;
+      border-left-width: 0;
+      border-right-width: 0;
+      
+      #footer-content {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+
+  </html>
