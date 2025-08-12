@@ -18,48 +18,82 @@
     <script src="https://cdn.jsdelivr.net/npm/@@tailwindcss/browser@4"></script>
   </head>
 
-  <script></script>
-
   <body>
-    <nav 
-      class="
-        flex
-        "
-    >
-      <div class="w-full">
-        <h1>@Model.Value("productName", fallback: Fallback.ToAncestors)</h1>
-      </div>
+  <nav class="flex">
+    <div class="w-full">
+      <h1>Luxury & Co</h1>
+    </div>
 
-      <div>
-        <ul class="flex w-full">
-          <li><a href="/">HOME</a></li>
-          <li><a href="/about">ABOUT</a></li>
-          <li><a href="/buy">BUY</a></li>
-        </ul>
-      </div>
+    <div>
+      <ul class="flex w-full justify-center space-x-6 text-lg font-bold">
+        <li><a class="hover:text-blue-600" href="/">HOME</a></li>
+        <li><a class="hover:text-amber-400" href="/watches">WATCHES</a></li>
+        <li><a class="hover:text-rose-500" href="/perfume">PERFUME</a></li>
+        <li><a class="hover:text-amber-600" href="/spirits">SPIRITS</a></li>
+        <li><a class="hover:text-grey-700" href="/cars">CARS</a></li>
+      </ul>
+    </div>
 
-      <div class="flex justify-end items-center w-full">
-        <i class="material-symbols-outlined">shopping_cart</i>
-      </div>
-    </nav>
+    <div class="flex justify-end items-center w-full">
+      <i class="material-symbols-outlined">shopping_cart</i>
+    </div>
+  </nav>
 
     <main>
       @RenderBody()
     </main>
 
     <footer>
-      <div id="footer-content">
-        This is a footer
+      <div id="footer-links">
+        <p>Luxury & Co - Everything that money can buy</p>
+        <nav class="flex justify-center w-full">
+          <ul class="flex space-x-6 text-lg font-bold">
+            <li><a href="/aboutus">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/jobs">Jobs</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/newsletter">Newsletter</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/imprint">Imprint</a></li>
+          </ul>
+        </nav>
       </div>
+      
+      <div id="footer-copyright">
+        <p>© 2025 Luxury & Co GmbH – All rights reserved. | 40 Richstreet 99999 St. Oettinger</p>
+      </div>
+      
     </footer>
   </body>
 
   <style>
+    /*Comment section for understanding:
+
+    margin:
+      - Distance outside an element
+      - Example: margin-top: 10px creates a distance of 10 pixels from the previous element at the top.
+
+    padding:
+      - Distance inside an element
+      - Example: padding: 10px ensures that the text does not stick directly to the edge, but has 10 pixels of space inside.*/
+    
+    
     body {
-      margin: 1rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 1rem; 
+      padding-bottom: 0;
+      box-sizing: border-box;
+      background-color: darkgray;
     }
 
     nav {
+      color: #006039;
+      margin-top: 1rem;
       padding: 1rem;
       font-size: 1.5rem;
 
@@ -67,9 +101,9 @@
       border-top-width: 0;
       border-left-width: 0;
       border-right-width: 0;
-      border-bottom-width: .3rem;
+      border-bottom-width: .2rem;
       border-color: black;
-
+      
       h1, ul li, i {
         cursor: pointer;
         margin-right: 1rem;
@@ -95,21 +129,58 @@
       margin-bottom: 1rem;
 
       display: flex;
+      flex: 1;
       justify-content: center;
       align-items: center;
     }
-
+    /* The Footer Section */
     footer {
-      border: solid;
-      border-top-width: .3rem;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      margin-bottom: -1rem;
+      
+      padding: 1rem;
+      
+      border-top: 3px solid black;
+      background-color: #313134;
+      color: grey;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.02);
+      /*box-sizing: border-box;*/
+      padding: 1rem 0;
+      text-align: center;
+      overflow: hidden; /* Versucht Margin-Collapse zu verhindern */
+    }
+    
+    #footer-links {
+      padding-top:  0.1rem;
+      margin-bottom: 1rem;
+      /* Only the upper frame should be visible so that a dividing line is created. */
       border-bottom-width: 0;
       border-left-width: 0;
       border-right-width: 0;
-      
-      #footer-content {
-        margin-top: 1rem;
-      }
     }
+    
+    #footer-links ul {
+      justify-content: center;
+    }
+    
+    /*Hover effects for footer links*/
+    #footer-links ul li a:hover {
+      /*hover:text-grey-700*/
+      color: #6b7280;
+    }
+    
+    #footer-copyright {
+      /*border-top: 1px solid #888888;*/
+      padding:  1rem;
+      margin-bottom: 1rem;
+      margin-top: -1rem;
+      color: #6b7280;
+      font-weight: 400;
+      font-size: 0.875rem;
+      display: block;
+    }
+    
   </style>
 
   </html>

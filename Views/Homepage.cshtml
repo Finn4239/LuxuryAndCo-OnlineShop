@@ -1,50 +1,43 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Homepage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = "Master.cshtml";
+    Layout = "Master.cshtml";
+    
+    var watchesFolder = Umbraco.Media(1062);
+    var watchImages = watchesFolder?.Children.Where(x => x.ContentType.Alias == "Image").ToList();
 }
 
+<div class="flex flex-col items-center">
+    <h1 class="text-4xl mb-4"></h1>
 
-<div
-	class="flex flex-col items-center"
->
-	<h1
-		class="text-4xl mb-4"
-	>
-		@Model.Value("slogan")
-	</h1>
-
-	<img
-		src=@Model.Value("productImage")
-		alt="Header Image"
-		class="mb-4"
-		width=300
-		height=300
-	/>
-	
-	@Model.Value("salesText")
-	
-	<button
-		class="bg-sky-600 text-white mt-5 font-bold p-3"
-	>
-		BUY NOW @Model.Value("productPrice")€
-	</button>
+    <div id="slideshow" class="mb-4 relative" style="width: 500px; height: 500px;">
+        @if (watchImages != null && watchImages.Any())
+        {
+            int i = 0;
+            foreach (var img in watchImages)
+            {
+                <img src="@img.Url()" alt="@img.Name"
+                     style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; display: @(i == 0 ? "block" : "none");" />
+                i++;
+            }
+        }
+        else
+        {
+            <p>No pictures found!</p>
+        }
+    </div>
 </div>
 
-<style>
-	button {
-		cursor: pointer;
-		
-		transition-property: opacity;
-		transition-duration: .5s;
-		
-		border: solid;
-		border-color: transparent;
-		border-radius: .75rem;
-		
-		&:hover {
-			opacity: 90%;
-		}
-	}
-</style>
+<script>
+    const slides = document.querySelectorAll('#slideshow img');
+    let current = 0;
+
+    if (slides.length > 1) {
+        setInterval(() => {
+            slides[current].style.display = 'none';
+            current = (current + 1) % slides.length;
+            slides[current].style.display = 'block';
+        }, 5000); // img changes every 5 seconds
+    }
+</script>
