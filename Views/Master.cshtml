@@ -1,8 +1,8 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Master>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = null;
+    Layout = null;
 }
 
 <!doctype html>
@@ -18,169 +18,161 @@
     <script src="https://cdn.jsdelivr.net/npm/@@tailwindcss/browser@4"></script>
   </head>
 
-  <body>
-  <nav class="flex">
-    <div class="w-full">
-      <h1>Luxury & Co</h1>
+<body>
+<header class="site-header">
+  <nav class="main-navigation">
+    <div class="brand">
+      <h1 class="brand-title">Luxury & Co</h1>
     </div>
-
-    <div>
-      <ul class="flex w-full justify-center space-x-6 text-lg font-bold">
-        <li><a class="hover:text-blue-600" href="/">HOME</a></li>
-        <li><a class="hover:text-amber-400" href="/watches">WATCHES</a></li>
-        <li><a class="hover:text-rose-500" href="/perfume">PERFUME</a></li>
-        <li><a class="hover:text-amber-600" href="/spirits">SPIRITS</a></li>
-        <li><a class="hover:text-grey-700" href="/cars">CARS</a></li>
-      </ul>
-    </div>
-
-    <div class="flex justify-end items-center w-full">
+    <ul class="nav-list flex justify-center space-x-6 text-lg font-bold">
+      <li><a class="nav-link" href="/">HOME</a></li>
+      <li><a class="nav-link" href="/watches">WATCHES</a></li>
+      <li><a class="nav-link" href="/perfume">PERFUME</a></li>
+      <li><a class="nav-link" href="/spirits">SPIRITS</a></li>
+      <li><a class="nav-link" href="/cars">CARS</a></li>
+    </ul>
+    <div class="cart-icon flex items-center">
       <i class="material-symbols-outlined">shopping_cart</i>
     </div>
   </nav>
+</header>
 
-    <main>
-      @RenderBody()
-    </main>
+<main class="site-main">
+  @RenderBody()
+</main>
 
-    <footer>
-      <div id="footer-links">
-        <p>Luxury & Co - Everything that money can buy</p>
-        <nav class="flex justify-center w-full">
-          <ul class="flex space-x-6 text-lg font-bold">
-            <li><a href="/aboutus">About Us</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/jobs">Jobs</a></li>
-            <li><a href="/support">Support</a></li>
-            <li><a href="/faq">FAQ</a></li>
-            <li><a href="/newsletter">Newsletter</a></li>
-            <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/terms">Terms of Service</a></li>
-            <li><a href="/imprint">Imprint</a></li>
-          </ul>
-        </nav>
-      </div>
-      
-      <div id="footer-copyright">
-        <p>© 2025 Luxury & Co GmbH – All rights reserved. | 40 Richstreet 99999 St. Oettinger</p>
-      </div>
-      
-    </footer>
-  </body>
+<footer class="site-footer">
+  <div class="footer-info">
+    <p class="footer-slogan">Luxury & Co - Everything that money can buy</p>
+    <nav class="footer-navigation flex justify-center w-full">
+      <ul class="footer-list flex space-x-6 text-lg font-bold">
+        <li><a class="footer-link" href="/about-us">About Us</a></li>
+        <li><a class="footer-link" href="/contact">Contact</a></li>
+        <li><a class="footer-link" href="/jobs">Jobs</a></li>
+        <li><a class="footer-link" href="/support">Support</a></li>
+        <li><a class="footer-link" href="/faq">FAQ</a></li>
+        <li><a class="footer-link" href="/newsletter">Newsletter</a></li>
+        <li><a class="footer-link" href="/privacy">Privacy Policy</a></li>
+        <li><a class="footer-link" href="/terms">Terms of Service</a></li>
+        <li><a class="footer-link" href="/imprint">Imprint</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-copyright">
+    <p>© 2025 Luxury & Co GmbH – All rights reserved | 40 Richstreet 99999 St. Oettinger</p>
+  </div>
+</footer>
+</body>
 
-  <style>
-    /*Comment section for understanding:
-
-    margin:
-      - Distance outside an element
-      - Example: margin-top: 10px creates a distance of 10 pixels from the previous element at the top.
-
-    padding:
-      - Distance inside an element
-      - Example: padding: 10px ensures that the text does not stick directly to the edge, but has 10 pixels of space inside.*/
-    
-    
-    body {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      margin: 1rem; 
-      padding-bottom: 0;
-      box-sizing: border-box;
-      background-color: darkgray;
-    }
-
-    nav {
-      color: #006039;
-      margin-top: 1rem;
-      padding: 1rem;
-      font-size: 1.5rem;
-
-      border: solid;
-      border-top-width: 0;
-      border-left-width: 0;
-      border-right-width: 0;
-      border-bottom-width: .2rem;
-      border-color: black;
-      
-      h1, ul li, i {
-        cursor: pointer;
-        margin-right: 1rem;
-        margin-left: 1rem;
-
-        transition-property: opacity;
-        transition-duration: .25s;
-
-        &:hover {
-          opacity: 60%;
-        }
+<style>
+      body {
+        min-height: 100vh;
+        margin: 1rem;
+        background-color:  white;
+        display: flex;
+        flex-direction: column;
       }
 
-      ul li {
+      .site-header {
+        margin-top: 1rem;
+        padding: 1rem 0;
+        border-bottom: .2rem solid black;
+        background: transparent;
+      }
+
+      .main-navigation {
+        color: #006039;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand-title {
+        cursor: pointer;
+        margin: 0 1rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+      }
+
+      .nav-list li {
         font-family: "Bebas Neue", sans-serif;
         font-weight: 400;
         font-style: normal;
       }
-    }
 
-    main {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+      .nav-link {
+        cursor: pointer;
+        margin: 0 1rem;
+        transition: opacity .25s;
+        font-size: 1.8rem;
+      }
 
-      display: flex;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-    }
-    /* The Footer Section */
-    footer {
-      margin-left: -1rem;
-      margin-right: -1rem;
-      margin-bottom: -1rem;
-      
-      padding: 1rem;
-      
-      border-top: 3px solid black;
-      background-color: #313134;
-      color: grey;
-      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.02);
-      /*box-sizing: border-box;*/
-      padding: 1rem 0;
-      text-align: center;
-      overflow: hidden; /* Versucht Margin-Collapse zu verhindern */
-    }
-    
-    #footer-links {
-      padding-top:  0.1rem;
-      margin-bottom: 1rem;
-      /* Only the upper frame should be visible so that a dividing line is created. */
-      border-bottom-width: 0;
-      border-left-width: 0;
-      border-right-width: 0;
-    }
-    
-    #footer-links ul {
-      justify-content: center;
-    }
-    
-    /*Hover effects for footer links*/
-    #footer-links ul li a:hover {
-      /*hover:text-grey-700*/
-      color: #6b7280;
-    }
-    
-    #footer-copyright {
-      /*border-top: 1px solid #888888;*/
-      padding:  1rem;
-      margin-bottom: 1rem;
-      margin-top: -1rem;
-      color: #6b7280;
-      font-weight: 400;
-      font-size: 0.875rem;
-      display: block;
-    }
-    
-  </style>
+      .nav-link:hover {
+        color: #ffc107;
+        opacity: 0.6;
+      }
 
-  </html>
+      .cart-icon i {
+        cursor: pointer;
+        margin: 0 1rem;
+        transition: opacity .25s;
+      }
+
+      .cart-icon i:hover {
+        opacity: 0.6;
+        color: #ffc107;
+      }
+
+      .site-main {
+        margin: 1rem 0;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+
+      .site-footer {
+        margin: 0 -1rem -1rem -1rem;
+        padding: 1rem 0;
+        border-top: 3px solid black;
+        background-color: #313134;
+        color: grey;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.02);
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .footer-info {
+        padding-top: 0.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-slogan {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-list {
+        justify-content: center;
+      }
+
+      .footer-link {
+        transition: color .25s;
+      }
+
+      .footer-link:hover {
+        color: #6b7280;
+      }
+
+      .footer-copyright {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        margin-top: -1rem;
+        color: #6b7280;
+        font-weight: 400;
+        font-size: 0.875rem;
+        display: block;
+      }
+    </style>
+
+</html>
