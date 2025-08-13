@@ -9,7 +9,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart" /> <!-- shopping cart icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" /> <!-- google material symbols -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -31,7 +32,11 @@
       <li><a class="nav-link" href="/spirits">SPIRITS</a></li>
       <li><a class="nav-link" href="/cars">CARS</a></li>
     </ul>
+    
     <div class="cart-icon flex items-center">
+      <button id="theme-toggle">
+        <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+      </button>
       <i class="material-symbols-outlined">shopping_cart</i>
     </div>
   </nav>
@@ -52,8 +57,8 @@
         <li><a class="footer-link" href="/support">Support</a></li>
         <li><a class="footer-link" href="/faq">FAQ</a></li>
         <li><a class="footer-link" href="/newsletter">Newsletter</a></li>
-        <li><a class="footer-link" href="/privacy">Privacy Policy</a></li>
-        <li><a class="footer-link" href="/terms">Terms of Service</a></li>
+        <li><a class="footer-link" href="/privacy-policy">Privacy Policy</a></li>
+        <li><a class="footer-link" href="/terms-of-service">Terms of Service</a></li>
         <li><a class="footer-link" href="/imprint">Imprint</a></li>
       </ul>
     </nav>
@@ -69,6 +74,7 @@
         min-height: 100vh;
         margin: 1rem;
         background-color:  white;
+        color:  black;
         display: flex;
         flex-direction: column;
       }
@@ -79,7 +85,16 @@
         border-bottom: .2rem solid black;
         background: transparent;
       }
-
+      
+      body.dark-mode {
+        background-color: black;
+        color: white;
+      }
+     
+      body.dark-mode  .site-header {
+        border-bottom:  .2rem solid white;
+      }
+     
       .main-navigation {
         color: #006039;
         font-size: 1.5rem;
@@ -142,7 +157,12 @@
         text-align: center;
         overflow: hidden;
       }
-
+      
+      body.dark-mode .site-footer {
+        border-top:  3px solid white;
+        color: lightgrey;
+      }
+      
       .footer-info {
         padding-top: 0.1rem;
         margin-bottom: 1rem;
@@ -174,5 +194,25 @@
         display: block;
       }
     </style>
+    
+<script>
+  const toggleButton = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  
+  function updateIcon() {
+    if (document.body.classList.contains('dark-mode')) {
+      themeIcon.textContent = 'dark_mode';
+    } else {
+      themeIcon.textContent = 'light_mode';
+    }
+  }
+  
+  updateIcon();
+  
+  toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    updateIcon();
+  });
+</script>
 
 </html>
