@@ -1,5 +1,5 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.TermsOfServicePage>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.CarsPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 	Layout = "Master.cshtml";
@@ -23,7 +23,8 @@
 		</header>
 
 		<article class="about-us-section">
-			<p>@Html.Raw(Model.Value("termsOfService"))</p>
+			<h2>Test</h2>
+			<p>@Html.Raw(Model.Value("test"))</p>
 		</article>
 		
 	</section>
