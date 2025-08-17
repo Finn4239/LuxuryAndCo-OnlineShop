@@ -21,11 +21,10 @@
 			<h1>@Model.Value("pageTitle")</h1>
 			<div class="underline"></div>
 		</header>
-
-		<article class="about-us-section">
-			<h2>Test</h2>
-			<p>@Html.Raw(Model.Value("test"))</p>
-		</article>
+		
+		<div class="block-grid-wrapper">
+			@await Html.GetBlockGridHtmlAsync(Model.Lambo)
+		</div>
 		
 	</section>
 
