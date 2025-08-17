@@ -477,3 +477,8 @@ $RECYCLE.BIN/
 
 # Media files
 # /wwwroot/media/
+
+# DB files
+.db
+.db-shm
+.db-wal
