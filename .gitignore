@@ -477,16 +477,3 @@ $RECYCLE.BIN/
 
 # Media files
 # /wwwroot/media/
-
-# DB files
-.db
-.db-shm
-.db-wal
-.sqlite.db
-.sqlite.db-shm
-.sqlite.db-wal
-
-# Umbraco SQLite database
-/umbraco/Data/Umbraco.sqlite.db
-/umbraco/Data/Umbraco.sqlite.db-shm
-/umbraco/Data/Umbraco.sqlite.db-wal
