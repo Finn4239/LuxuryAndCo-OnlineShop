@@ -9,7 +9,11 @@
     <div class="content-box-body">
         @foreach (var sec in Model.Sections)
         {
-            <h2>@sec.Title</h2>
+            @* Nur anzeigen, wenn ein Titel vorhanden ist *@
+            @if (!string.IsNullOrWhiteSpace(sec.Title))
+            {
+                <h2>@sec.Title</h2>
+            }
             <p>@Html.Raw(sec.Content.Replace("\n", "<br />"))</p>
         }
 
