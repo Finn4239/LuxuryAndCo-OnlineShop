@@ -1,108 +1,42 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using LuxuryAndCo.OnlineShop.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.AboutUsPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 	Layout = "Master.cshtml";
+
+	var footerModel = new FooterContentViewModel()
+	{
+		PageTitle = Model.Value<string>("pageTitle"),
+		
+		Sections = new List<Section>
+		{
+			new Section
+			{
+				Title = "General",
+				Content = Model.Value<string>("general")
+			},
+			new Section
+			{
+				Title = "History",
+				Content = Model.Value<string>("history")
+			},
+			new Section 
+			{
+				Title = "Quality Standards",
+				Content = Model.Value<string>("qualityStandards")
+			},
+			new Section 
+			{
+				Title = "Philosophy",
+				Content = Model.Value<string>("philosophy")
+			}
+			
+		}
+		
+	};
 }
 
-<head>
-	<meta charset="UTF-8">
-	<title>About Us</title>
-	<!-- Royal Fonts from Google -->
-	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
-
-
-	<section class="about-us-container">
-		<header class="about-us-header">
-			<h1>@Model.Value("pageTitle")</h1>
-			<div class="underline"></div>
-		</header>
-
-		<article class="about-us-section">
-			<h2>General</h2>
-			<p>@Html.Raw(Model.Value("general"))</p>
-		</article>
-
-		<article class="about-us-section">
-			<h2>History</h2>
-			<p>@Html.Raw(Model.Value("history"))</p>
-		</article>
-
-		<article class="about-us-section">
-			<h2>Quality Standards</h2>
-			<p>@Html.Raw(Model.Value("qualityStandards"))</p>
-		</article>
-
-		<article class="about-us-section">
-			<h2>Philosophy</h2>
-			<p>@Html.Raw(Model.Value("philosophy"))</p>
-		</article>
-	</section>
-
-	<style>
-		/* Container */
-		.about-us-container {
-			max-width: 1250px;
-			margin: 3rem auto;
-			padding: 2rem;
-			background-color: #006039; /* Rolex green */
-			color: #eee;
-			font-family: 'Cinzel', sans-serif;
-			border-radius: 12px;
-			box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			cursor: pointer;
-
-		}
-
-		.about-us-container:hover {
-			transform: translateY(-15px) scale(1.05);
-			box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
-		}
-
-		/* Header */
-		.about-us-header {
-			text-align: center;
-			margin-bottom: 2rem;
-		}
-
-		.about-us-header h1 {
-			font-size: 3rem;
-			color: #111;
-			letter-spacing: 2px;
-			margin-bottom: 0.5rem;
-		}
-
-		.about-us-header .underline {
-			width: 150px;
-			height: 4px;
-			background-color: #d4af37;
-			margin: 0 auto;
-			border-radius: 2px;
-		}
-
-		/* Sections */
-		.about-us-section {
-			margin-bottom: 2rem;
-		}
-
-		.about-us-section h2 {
-			font-size: 2rem;
-			color: #d4af37;
-			margin-bottom: 0.5rem;
-			letter-spacing: 1px;
-		}
-
-		.about-us-section p {
-			font-family: 'Cinzel', Arial, sans-serif;
-			font-size: 1.1rem;
-			line-height: 1.6;
-			margin: 0;
-		}
-	</style>
-
-</head>
+<section class="contact-container">
+	@await Html.PartialAsync("~/Views/Partials/PageContentTemplate/FooterContentTemplate.cshtml", footerModel)
+</section>
