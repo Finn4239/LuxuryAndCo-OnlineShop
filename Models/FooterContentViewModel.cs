@@ -6,7 +6,6 @@ public class FooterContentViewModel
     { get; set; }
     
     public List<Section> Sections { get; set; } = new List<Section>();
-    
 }
 
 public class Section
