@@ -1,4 +1,6 @@
-﻿@{
+﻿@using LuxuryAndCo.OnlineShop.Models
+
+@{
     Layout = "master.cshtml";
 }
 
@@ -7,37 +9,37 @@
     <p class="text-gray-600 text-center mb-10">Explore our Rolex collection highlights</p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        @await Html.PartialAsync("Partials/_ProductCard", new {
+        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
             ImageUrl = "/images/watches/Rolex_DayDate_gold_green.png",
             Name = "Rolex Day-Date",
             Price = 45000
         })
 
-        @await Html.PartialAsync("Partials/_ProductCard", new {
+        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
             ImageUrl = "/images/watches/Rolex_SubmarinerDate_silver_green.png",
             Name = "Rolex Submariner Date",
             Price = 12500
         })
 
-        @await Html.PartialAsync("Partials/_ProductCard", new {
+        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
             ImageUrl = "/images/watches/Rolex_SubmarinerDate_silver_green.png",
             Name = "Test Rolex",
             Price = 12500
         })
 
-        @await Html.PartialAsync("Partials/_ProductCard", new {
+        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
             ImageUrl = "/images/watches/Rolex_SubmarinerDate_silver_green.png",
             Name = "Test Rolex 3",
             Price = 12500
         })
 
-        @await Html.PartialAsync("Partials/_ProductCard", new {
+        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
             ImageUrl = "/images/watches/Rolex_SubmarinerDate_silver_green.png",
             Name = "Test Rolex 4",
             Price = 12500
         })
 
-        @await Html.PartialAsync("Partials/_ProductCard", new {
+        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
             ImageUrl = "/images/watches/Rolex_SubmarinerDate_silver_green.png",
             Name = "Test Rolex 5",
             Price = 12500
@@ -45,11 +47,9 @@
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        function addToCart(product, price) {
-            alert(product + " has been added to your cart for $" + price);
-            // Later: replace this alert with real cart logic
+<script>
+    function addToCart(product, price) {
+        alert(product + " has been added to your cart for $" + price);
+        // Later: replace this alert with real cart logic
         }
-    </script>
-}
+</script>
