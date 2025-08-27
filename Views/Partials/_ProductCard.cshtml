@@ -3,8 +3,8 @@
 <div class="border rounded-lg shadow-md p-6 bg-white text-center">
     <img src="@Model.ImageUrl" alt="@Model.Name"
          class="w-full h-64 object-contain mb-4 mx-auto" />
-    <h2 class="text-xl font-semibold mb-2">@Model.Name</h2>
-    <p class="text-gray-500 mb-4">$@Model.Price</p>
+    <h2 class="text-xl font-semibold mb-2">@Model.Brand - @Model.Name</h2>
+    <p class="text-gray-500 mb-4">$@Model.Price.ToString("N0", new System.Globalization.CultureInfo("de-DE"))</p>
     <button onclick="addToCart('@Model.Name', @Model.Price)"
             class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
         Add to Cart

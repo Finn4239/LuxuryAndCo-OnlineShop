@@ -1,0 +1,74 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.SpiritsPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using LuxuryAndCo.OnlineShop.Models
+@{
+	Layout = "master.cshtml";
+}
+
+<div class="container mx-auto px-6 py-12">
+	<h1 class="text-3xl font-bold mb-6 text-center">Luxury Spirits</h1>
+	<p class="text-gray-600 text-center mb-10">Explore our Spirits collection highlights</p>
+	
+	<section class="mb-16">
+		<h2 class="text-3xl font-bold mb-6 text-center">Whisky</h2>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+			@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
+				Brand = "The Macallan",
+				Name = "Time: Space Mastery",
+				Price = 2100,
+				ImageUrl = "/images/spirits/whisky/macallan_time_space_mastery.png"
+			})
+		
+			@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel
+			{
+				Brand = "The Macallan",
+				Name = "Double Cask 30 Years Old, 2024 Release",
+				Price = 4700,
+				ImageUrl = "/images/spirits/whisky/macallan_double_cask_30_2024_release.png"
+			})
+
+			@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel
+			{
+				Brand = "The Macallan",
+				Name = "A Night on Earth",
+				Price = 230000,
+				ImageUrl = "/images/spirits/whisky/macallan_the_reach_hand.png"
+			})
+		</div>
+	</section>
+	
+	<section class="mb-16">
+		<h2 class="text-3xl font-bold mb-6 text-center">Rum</h2>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+			
+			@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
+				Brand = "Havana Club",
+				Name = "Maximo Extra Anejo",
+				Price = 2300,
+				ImageUrl = "/images/spirits/rum/havana_club_maximo_extra_anejo.png"
+			})
+			
+			@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel
+			{
+				Brand = "Appleton Estate",
+				Name = "50 Year Jamaica Independence Reserve",
+				Price = 4500,
+				ImageUrl = "/images/spirits/rum/appleton_estate_50_year_jamaica_independence_reserve.png"
+			})
+
+			@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel
+			{
+				Brand = "Dictador",
+				Name = "Generations en Lalique",
+				Price = 17000,
+				ImageUrl = "/images/spirits/rum/dictador_generations_en_lalique.png"
+			})
+
+
+		</div>
+	</section>
+	
+</div>
