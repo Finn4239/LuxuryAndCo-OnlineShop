@@ -3,6 +3,7 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
     Layout = null;
+    var siteSettings = Umbraco.Content("1116");
 }
 
 <!doctype html>
@@ -26,11 +27,11 @@
       <h1 class="brand-title">Luxury & Co</h1>
     </div>
     <ul class="nav-list flex justify-center space-x-6 text-lg font-bold">
-      <li><a class="nav-link" href="/">HOME</a></li>
-      <li><a class="nav-link" href="/watches">WATCHES</a></li>
-      <li><a class="nav-link" href="/perfume">PERFUME</a></li>
-      <li><a class="nav-link" href="/spirits">SPIRITS</a></li>
-      <li><a class="nav-link" href="/cars">CARS</a></li>
+      <li><a class="nav-link" href="/">@siteSettings.Value("homeText", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+      <li><a class="nav-link" href="/watches">@siteSettings.Value("watchesText", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+      <li><a class="nav-link" href="/perfume">@siteSettings.Value("perfumeText", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+      <li><a class="nav-link" href="/spirits">@siteSettings.Value("spiritsText", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+      <li><a class="nav-link" href="/cars">@siteSettings.Value("carsText", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
     </ul>
     
     <div class="cart-icon flex items-center">
@@ -48,23 +49,23 @@
 
 <footer class="site-footer">
   <div class="footer-info">
-    <p class="footer-slogan">Luxury & Co - Everything that money can buy</p>
+    <p class="footer-slogan">@siteSettings.Value("footerSlogan", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</p>
     <nav class="footer-navigation flex justify-center w-full">
       <ul class="footer-list flex space-x-6 text-lg font-bold">
-        <li><a class="footer-link" href="/about-us">About Us</a></li>
-        <li><a class="footer-link" href="/contact">Contact</a></li>
-        <li><a class="footer-link" href="/jobs">Jobs</a></li>
-        <li><a class="footer-link" href="/support">Support</a></li>
-        <li><a class="footer-link" href="/faq">FAQ</a></li>
-        <li><a class="footer-link" href="/newsletter">Newsletter</a></li>
-        <li><a class="footer-link" href="/privacy-policy">Privacy Policy</a></li>
-        <li><a class="footer-link" href="/terms-of-service">Terms of Service</a></li>
-        <li><a class="footer-link" href="/imprint">Imprint</a></li>
+        <li><a class="footer-link" href="/about-us">@siteSettings.Value("aboutUsButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/contact">@siteSettings.Value("contactButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/jobs">@siteSettings.Value("jobsButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/support">@siteSettings.Value("supportButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/faq">@siteSettings.Value("faqButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/newsletter">@siteSettings.Value("newsletterButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/privacy-policy">@siteSettings.Value("privacyPolicyButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/terms-of-service">@siteSettings.Value("termsOfServiceButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
+        <li><a class="footer-link" href="/imprint">@siteSettings.Value("imprintButtonName", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</a></li>
       </ul>
     </nav>
   </div>
   <div class="footer-copyright">
-    <p>© 2025 Luxury & Co GmbH – All rights reserved | 40 Richstreet 99999 St. Oettinger</p>
+    <p>@siteSettings.Value("footerCopyright", culture: System.Threading.Thread.CurrentThread.CurrentUICulture.Name)</p>
   </div>
 </footer>
 </body>

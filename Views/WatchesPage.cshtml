@@ -2,39 +2,32 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.WatchesPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using LuxuryAndCo.OnlineShop.Models
+@using Umbraco.Cms.Core.Models.Blocks
 
 @{
     Layout = "master.cshtml";
+    var products = Model.Value<IEnumerable<BlockListItem>>("products");
 }
 
 <div class="container mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-6 text-center">Luxury Watches</h1>
-    <p class="text-gray-600 text-center mb-10">Explore our Rolex collection highlights</p>
+    <h1 class="text-3xl font-bold mb-6 text-center">Luxury @Model.Value("productType")</h1>
+    <p class="text-gray-600 text-center mb-10">Explore our @Model.Value("productType") collection highlights.
+        We currently offer @(products?.Count() ?? 0) watches.</p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        
-        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-            Brand = "Rolex",
-            Name = "Rolex Submariner Date",
-            Price = 15000,
-            ImageUrl = "/images/watches/rolex_submariner_date_silver_green.png"
-        })
-        
-        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-            Brand = "Rolex",
-            Name = "Yacht-Master",
-            Price = 17500,
-            ImageUrl = "/images/watches/rolex_yacht_master.png"
-        })
-        
-        @await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-            Brand = "Rolex",
-            Name = "Rolex Day-Date",
-            Price = 45000,
-            ImageUrl = "/images/watches/rolex_day-date_gold_green.png"
-        })
-        
-        </div>
+        @foreach (var product in products)
+        {
+            var productContent = product.Content;
+            var vm = new ProductCardViewModel {
+                Brand = productContent.Value<string>("productBrand"),
+                Name = productContent.Value<string>("productName"),
+                Price = productContent.Value<decimal>("productPrice"),
+                ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
+            };
+
+            @await Html.PartialAsync("Partials/_ProductCard", vm)
+        }
+    </div>
 </div>
 
 <script>

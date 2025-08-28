@@ -2,34 +2,28 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.PerfumesPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using LuxuryAndCo.OnlineShop.Models
+@using Umbraco.Cms.Core.Models.Blocks
 @{
 	Layout = "master.cshtml";
+	var products = Model.Value<IEnumerable<BlockListItem>>("products");
 }
 
 <div class="container mx-auto px-6 py-12">
-	<h1 class="text-3xl font-bold mb-6 text-center">Luxury Perfume</h1>
-	<p class="text-gray-600 text-center mb-10">Explore our Perfumes collection highlights</p>
+	<h1 class="text-3xl font-bold mb-6 text-center">Luxury @Model.Value("productType")</h1>
+	<p class="text-gray-600 text-center mb-10">Explore our @Model.Value("productType") collection highlights</p>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Roja Parfums",
-			Name = "Oceania",
-			Price = 395,
-			ImageUrl = "/images/perfumes/roja_parfums_oceania.png",
-		})
+		@foreach (var product in products)
+		{
+			var productContent = product.Content;
+			var vm = new ProductCardViewModel {
+				Brand = productContent.Value<string>("productBrand"),
+				Name = productContent.Value<string>("productName"),
+				Price = productContent.Value<decimal>("productPrice"),
+				ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
+			};
 
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Dr. Vranjes Firenze",
-			Name = "Ginger Lime - Eau de Parfum",
-			Price = 164,
-			ImageUrl = "/images/perfumes/dr._vranjes_firenze_ginger_lime_eau_de_parfum.png",
-		})
-
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Parfums d'Elmar",
-			Name = "Purple Rain",
-			Price = 250,
-			ImageUrl = "/images/perfumes/parfums_delmar_purple_rain.png"
-		})
+			@await Html.PartialAsync("Partials/_ProductCard", vm)
+		}
 	</div>
 </div>

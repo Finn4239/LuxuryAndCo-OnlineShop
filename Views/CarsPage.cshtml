@@ -2,55 +2,31 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.CarsPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using LuxuryAndCo.OnlineShop.Models;
+@using Umbraco.Cms.Core.Models.Blocks
 @{
 	Layout = "Master.cshtml";
+	var products = Model.Value<IEnumerable<BlockListItem>>("products");
 }
 
 <div class="container mx-auto px-6 py-12">
-	<h1 class="text-3xl font-bold mb-6 text-center">Luxury Cars</h1>
-	<p class="text-gray-600 text-center mb-10">Explore our Cars collection highlights</p>
+	<h1 class="text-3xl font-bold mb-6 text-center">Luxury @Model.Value("productType")</h1>
+	<p class="text-gray-600 text-center mb-10">
+		@Model.Value("categorySlogan")
+		Explore our @Model.Value("productType") collection highlights
+	</p>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Rolls Royce",
-			Name = "Phantom",
-			Price = 520000,
-			ImageUrl = "/images/cars/rolls_royce_phantom_dark_green.png",
-		})
+		@foreach (var product in products)
+		{
+			var productContent = product.Content;
+			var vm = new ProductCardViewModel {
+				Brand = productContent.Value<string>("productBrand"),
+				Name = productContent.Value<string>("productName"),
+				Price = productContent.Value<decimal>("productPrice"),
+				ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
+			};
 
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Rolls Royce",
-			Name = "Ghost",
-			Price = 350000,
-			ImageUrl = "/images/cars/rolls_royce_ghost_bronze.png",
-		})
-
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Mercedes",
-			Name = "Maybach S-680",
-			Price = 380000,
-			ImageUrl = "/images/cars/mercedes_maybach_s680_grau.png",
-		})
-
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Koenigsegg",
-			Name = "Gemera",
-			Price = 1900000,
-			ImageUrl = "/images/cars/koenigsegg_gemera_green.jpg",
-		})
-
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Koenigsegg",
-			Name = "Jesko",
-			Price = 3500000,
-			ImageUrl = "/images/cars/koenigsegg_jesko_white.png",
-		})
-
-		@await Html.PartialAsync("Partials/_ProductCard", new ProductCardViewModel{
-			Brand = "Pagani",
-			Name = "Huayra",
-			Price = 6000000,
-			ImageUrl = "/images/cars/pagani_huayra_red.png",
-		})
+			@await Html.PartialAsync("Partials/_ProductCard", vm)
+		}
 	</div>
 </div>
