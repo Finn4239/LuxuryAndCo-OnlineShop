@@ -13,8 +13,8 @@
     @foreach (var product in products)
     {
         var productContent = product.Content;
-        var images = product.Content.Value<IEnumerable<IPublishedContent>>("productImages");
-        var imageUrls = images?.Select(x => x.Url()).ToList() ?? new List<string>();
+        var images = Model.Value<IEnumerable<IPublishedContent>>("productImages");
+        var imageUrls = images?.Select(x => x.MediaUrl()).ToList() ?? new List<string>();
         
         var productDetail = new PDPViewModel()
         {
