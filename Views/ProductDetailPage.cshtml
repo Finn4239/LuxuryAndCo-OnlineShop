@@ -1,6 +1,30 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProductDetailPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using LuxuryAndCo.OnlineShop.Models;
+@using Umbraco.Cms.Core.Models.Blocks;
+
 @{
-	Layout = null;
+    Layout = "master.cshtml";
+    var products = Model.Value<IEnumerable<BlockListItem>>("product");
 }
+
+<div class="container">
+    @foreach (var product in products)
+    {
+        var productContent = product.Content;
+        var images = product.Content.Value<IEnumerable<IPublishedContent>>("productImages");
+        var imageUrls = images?.Select(x => x.Url()).ToList() ?? new List<string>();
+        
+        var productDetail = new PDPViewModel()
+        {
+            Brand = productContent.Value<string>("productBrand"),
+            Name = productContent.Value<string>("productName"),
+            Price = productContent.Value<decimal>("productPrice"),
+            Description = productContent.Value<string>("productDescription"),
+            ImageUrls = imageUrls
+        };
+
+        @await Html.PartialAsync("Partials/_PDPView", productDetail)
+    }
+</div>

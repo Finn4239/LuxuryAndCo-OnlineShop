@@ -1,0 +1,169 @@
+﻿@model LuxuryAndCo.OnlineShop.Models.PDPViewModel
+@inject Umbraco.Cms.Web.Common.UmbracoHelper Umbraco
+
+@{
+    var page = Umbraco.Content(1140);
+    var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
+}
+
+<div class="pdp-container">
+    <div class="pdp-main-img">
+        @if(Model.ImageUrls != null && Model.ImageUrls.Any())
+        {
+            <img id="mainProductImage" src="@Model.ImageUrls.First()" alt="@Model.Name" />
+        }
+        else
+        {
+            <img src="/path/to/placeholder.png" alt="No image available" />
+        }
+    </div>
+
+    <div class="pdp-thumbs">
+        @if(Model.ImageUrls != null && Model.ImageUrls.Count > 1)
+        {
+            @foreach (var img in Model.ImageUrls.Skip(1).Take(3))
+            {
+                <img class="thumb" src="@img" alt="@Model.Name thumbnail" onclick="changeMainImage(this)" />
+            }
+        }
+    </div>
+    </div>
+
+    <div class="pdp-info">
+        <h2 class="pdp-brand">@Model.Brand</h2>
+        <h1 class="pdp-name">@Model.Name</h1>
+        <p class="pdp-price">@Model.Price.ToString("C")</p>
+        <div class="pdp-description">@Html.Raw(Model.Description)</div>
+        <button class="pdp-btn">@addToCartText</button>
+    </div>
+</div>
+
+<script>
+    function changeMainImage(thumb) {
+        document.getElementById("mainProductImage").src = thumb.src;
+    }
+</script>
+
+
+<style>
+    /* Container */
+    .pdp-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+        padding: 3rem;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    /* Galerie links */
+    .pdp-gallery {
+        flex: 1 1 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pdp-main-img {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .pdp-main-img img {
+        max-width: 100%;
+        max-height: 500px;
+        border-radius: 12px;
+        object-fit: contain;
+    }
+
+    .pdp-thumbs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .pdp-thumbs img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .pdp-thumbs img:hover {
+        transform: scale(1.05);
+        border-color: #000;
+    }
+
+    /* Infos rechts */
+    .pdp-info {
+        flex: 1 1 45%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .pdp-brand {
+        font-size: 1.4rem;
+        color: #777;
+        margin-bottom: .5rem;
+    }
+
+    .pdp-name {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .pdp-price {
+        font-size: 2rem;
+        color: #111;
+        margin-bottom: 2rem;
+    }
+
+    .pdp-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .pdp-btn {
+        padding: 1rem 2rem;
+        background: #111;
+        color: #fff;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+        max-width: 250px;
+    }
+
+    .pdp-btn:hover {
+        background: #333;
+    }
+
+    /* Responsive */
+    @@media (max-width: 900px) {
+    .pdp-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pdp-info {
+        text-align: center;
+        align-items: center;
+    }
+
+    .pdp-btn {
+        width: 100%;
+    }
+}
+
+</style>
