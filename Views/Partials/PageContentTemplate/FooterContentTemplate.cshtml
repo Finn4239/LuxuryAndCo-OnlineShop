@@ -28,12 +28,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
 
 <style>
-    /* Container Box */
+    main {
+        background-image: url('/images/background/luxurious_black_and_gold_staircase.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
     .content-box {
-        max-width: 1250px;
+        max-width: 900px; /* vorher 1250px */
         margin: 3rem auto;
-        padding: 2rem;
-        background-color: #006039; /* Rolex green */
+        padding: 1.5rem; /* vorher 2rem */
+        background-color: #006039;
         color: #eee;
         font-family: 'Cinzel', serif;
         border-radius: 12px;
@@ -42,13 +47,11 @@
         cursor: pointer;
     }
     
-    /* Hover Effekt */
     .content-box:hover {
         transform: translateY(-15px) scale(1.05);
         box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
     }
-
-    /* Header und Unterstreichung */
+    
     .content-box-header {
         text-align: center;
         margin-bottom: 2rem;
@@ -68,8 +71,7 @@
         margin: 0 auto;
         border-radius: 2px;
     }
-
-    /* Body Content */
+    
     .content-box-body h2 {
         text-align: center;
         margin-bottom: 2rem;
@@ -87,7 +89,6 @@
         color: #d4af37;
     }
 
-    /* Optional: Links im Content */
     .content-box-body a {
         color: #d4af37;
         text-decoration: underline;

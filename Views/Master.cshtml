@@ -41,9 +41,6 @@
     var privacyPolicyLink = siteSettings.Value<IPublishedContent>("privacyPolicyLink")?.Url(currentCulture);
     var termsOfServiceLink = siteSettings.Value<IPublishedContent>("termsOfServiceLink")?.Url(currentCulture);
     var imprintLink = siteSettings.Value<IPublishedContent>("imprintLink")?.Url(currentCulture);
-    
-    var targetCulture = currentCulture == "en" ? "de" : "en";
-    var targetUrl = Model.Url(culture: targetCulture, mode: UrlMode.Absolute);
 }
 
 <!doctype html>
@@ -63,7 +60,7 @@
   </head>
 
 <body>
-<header class="site-header">
+<header class="header">
   <nav class="main-navigation">
     <div class="brand">
       <h1 class="brand-title">Luxury & Co</h1>
@@ -80,19 +77,22 @@
       <button id="flag-toggle" onclick="onToggleLanguage(currentLang)" data-language="en" class="w-8 h-6 mr-6 rounded-md overflow-hidden hover:opacity-80 transition flex items-center justify-center">
         <span class="fi fi-gb text-xl"></span>
       </button>
-      <button id="theme-toggle">
-        <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
-      </button>
+      <div class="theme-icon">
+        <button id="theme-toggle">
+          <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+        </button>
+      </div>
+      
       <i class="material-symbols-outlined">shopping_cart</i>
     </div>
   </nav>
 </header>
 
-<main class="site-main">
+<main class="homepage-body">
   @RenderBody()
 </main>
 
-<footer class="site-footer">
+<footer class="footer">
   <div class="footer-info">
     <p class="footer-slogan">@siteSettings.Value("footerSlogan", culture: currentCulture)</p>
     <nav class="footer-navigation flex justify-center w-full">
@@ -116,28 +116,37 @@
 </body>
 
 <style>
-      body {
-        min-height: 100vh;
-        margin: 1rem;
-        background-color:  white;
-        color:  black;
-        display: flex;
-        flex-direction: column;
-      }
+  body {
+    min-height: 100vh;
+    margin: 0;                 
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
 
-      .site-header {
-        margin-top: 1rem;
-        padding: 1rem 0;
-        border-bottom: .2rem solid black;
-        background: transparent;
-      }
+  .header {
+    margin: 0;
+    padding: 0;
+    border-bottom: .2rem solid black;
+    background: transparent;
+    width: 100%;
+  }
+  
+  .header .main-navigation {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
       
       body.dark-mode {
         background-color: black;
         color: white;
       }
      
-      body.dark-mode  .site-header {
+      body.dark-mode  .header {
         border-bottom:  .2rem solid white;
       }
      
@@ -184,16 +193,22 @@
         opacity: 0.6;
         color: #ffc107;
       }
-
-      .site-main {
-        margin: 1rem 0;
+      
+      #theme-toggle:hover {
+        cursor: pointer;
+        opacity: 0.6;
+        color: #ffc107;
+      }
+      
+      .homepage-body {
         flex: 1;
+        display: flex;
         justify-content: center;
         align-items: center;
-        display: flex;
+        padding: 1rem;
       }
 
-      .site-footer {
+      .footer {
         margin: 0 -1rem -1rem -1rem;
         padding: 1rem 0;
         border-top: 3px solid black;
@@ -204,7 +219,7 @@
         overflow: hidden;
       }
       
-      body.dark-mode .site-footer {
+      body.dark-mode .footer {
         border-top:  3px solid white;
         color: lightgrey;
       }
@@ -271,16 +286,6 @@
   let currentLang = window.location.pathname.startsWith('/de') ? 'de' : 'en';
   toggleFlagButton.setAttribute('data-language', currentLang);
   languageFlag.className = currentLang === 'en' ? "fi fi-gb" : "fi fi-de";
-
-  /*toggleFlagButton.addEventListener('click', () => {
-    currentLang = currentLang === 'en' ? 'de' : 'en';
-    toggleFlagButton.setAttribute('data-language', currentLang);
-    languageFlag.className = currentLang === 'en' ? "fi fi-gb" : "fi fi-de";
-
-    window.location.href = currentLang === 'en' ? "/" : "/de/";
-  });*/
-
 </script>
-
 
 </html>
