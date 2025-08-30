@@ -37,7 +37,7 @@ var cartMessage = page.Value<string>("cartMessage");
         <h1 class="pdp-name">@Model.Name</h1>
         <p class="pdp-price">$@Model.Price.ToString("N0", new System.Globalization.CultureInfo("de-DE"))</p>
         <div class="pdp-description">@Html.Raw(Model.Description)</div>
-        <button class="pdp-btn" onclick="addToCart('@Model.Brand', '@Model.Name')">
+        <button class="pdp-btn" onclick="addToCart('@Model.Brand.Replace("'", "\\'")', '@Model.Name.Replace("'", "\\'")')">
             @addToCartText
         </button>
     </div>
