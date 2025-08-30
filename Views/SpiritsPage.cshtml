@@ -10,13 +10,13 @@
 }
 
 <div class="container mx-auto px-6 py-12">
-	<h1 class="text-3xl font-bold mb-6 text-center">Luxury @Model.Value("productType")</h1>
-	<div class="text-gray-600 text-center mb-10">
+	<h1 class="text-6xl font-extrabold mb-6 text-center" style="color:#111111">Luxury @Model.Value("productType")</h1>
+	<div class="text-xl font-bold text-center mb-10" style="color:#111111"> 
 		@Model.Value("categorySlogan")
 	</div>
 	
 	<section class="mb-16">
-		<h2 class="text-3xl font-bold mb-6 text-center">Whisky</h2>
+		<h2 class="text-5xl font-bold mb-6 text-center" style="color: #111111">Whisky</h2>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 			@foreach (var product in whiskies)
@@ -35,22 +35,31 @@
 	</section>
 	
 	<section class="mb-16">
-		<h2 class="text-3xl font-bold mb-6 text-center">Rum</h2>
+		<h2 class="text-5xl font-bold mb-6 text-center" style="color: #111111">Rum</h2>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-		@foreach (var product in rums)
-		{
-			var productContent = product.Content;
-			var productCard = new ProductCardViewModel {
-				Brand = productContent.Value<string>("productBrand"),
-				Name = productContent.Value<string>("productName"),
-				Price = productContent.Value<decimal>("productPrice"),
-				ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
-			};
+			@foreach (var product in rums)
+			{
+				var productContent = product.Content;
+				var productCard = new ProductCardViewModel {
+					Brand = productContent.Value<string>("productBrand"),
+					Name = productContent.Value<string>("productName"),
+					Price = productContent.Value<decimal>("productPrice"),
+					ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
+				};
 
-			@await Html.PartialAsync("Partials/_ProductCard", productCard)
-		}
+				@await Html.PartialAsync("Partials/_ProductCard", productCard)
+			}
 		</div>
 	</section>
 	
 </div>
+
+<style>
+	main {
+		background-image: url('/images/background/gold_veins_white_marble.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+</style>

@@ -2,5 +2,314 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ShoppingCartPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = "master.cshtml";
+Layout = "master.cshtml";
 }
+
+<section class="checkout-container">
+    <h1>@Model.Value("pageTitle")</h1>
+    <h2></h2>
+
+    <div class="cart-summary">
+        <table class="cart-table">
+            <thead>
+            <tr>
+                <th>@Model.Value("article")</th>
+                <th>@Model.Value("amount")</th>
+                <th>@Model.Value("price")</th>
+                <th>@Model.Value("total")</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Value<IEnumerable<IPublishedElement>>("cartItems") ?? Enumerable.Empty<IPublishedElement>())
+            {
+            }
+            </tbody>
+        </table>
+        <div class="cart-total">
+        </div>
+    </div>
+
+    <div class="checkout-form">
+        <h2>@Model.Value("billingShippingAddress")</h2>
+        <form method="post" action="/api/checkout/submit">
+            <div class="form-group">
+                <label for="fullname">@Model.Value("fullName")</label>
+                <input type="text" id="fullname" name="fullname" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="address">@Model.Value("streetHouseNumber")</label>
+                <input type="text" id="address" name="address" required/>
+            </div>
+
+            <div class="form-group-inline">
+                <div>
+                    <label for="zip">@Model.Value("postalCode")</label>
+                    <input type="text" id="zip" name="zip" required/>
+                </div>
+                <div>
+                    <label for="city">@Model.Value("city")</label>
+                    <input type="text" id="city" name="city" required/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="country">@Model.Value("country")</label>
+                <input type="text" id="country" name="country" required/>
+            </div>
+
+            <h2>@Model.Value("paymentMethod")</h2>
+            <div class="form-group">
+                <label>
+                    <input type="radio" name="payment" value="creditcard" checked/> @Model.Value("creditCard")
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="paypal"/> @Model.Value("payPal")
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="klarna"/> @Model.Value("klarna")
+                </label>
+            </div>
+
+            <div id="creditcard-fields" class="payment-fields">
+                <div class="form-group">
+                    <label for="cc-number">@Model.Value("cardNumber")</label>
+                    <input type="text" id="cc-number" name="cc-number" placeholder="1234 5678 9012 3456"/>
+                </div>
+                <div class="form-group-inline">
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="cc-exp">@Model.Value("expirationDate")</label>
+                            <input type="text" id="cc-exp" name="cc-exp" placeholder="MM/YY"/>
+                        </div>
+                        <div>
+                            <label for="cc-cvc">@Model.Value("securityCode")</label>
+                            <input type="text" id="cc-cvc" name="cc-cvc" placeholder="123"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group-inline payment-buttons">
+                <button type="button" class="paypal-btn" onclick="redirectToPayPal()">
+                    <img src="/images/icons/paypal_logo.png" alt="PayPal" />
+                </button>
+
+                <button type="button" class="klarna-btn" onclick="redirectToKlarna()">
+                    <img src="/images/icons/klarna_logo.png" alt="Klarna" />
+                </button>
+            </div>
+
+            <button type="submit" class="checkout-btn">Jetzt bezahlen</button>
+        </form>
+    </div>
+</section>
+
+<style>
+main {
+    background-image: url('/images/background/bitcoins.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.checkout-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    color: #111111;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-container h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.checkout-form h2 {
+    font-weight: bold;
+}
+
+.payment-buttons {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.paypal-btn,
+.klarna-btn {
+    flex: 1;
+    height: 50px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s, filter 0.1s;
+}
+
+.paypal-btn { background-color: #ffc439; }
+.klarna-btn { background-color: #F7B5C6; }
+
+.paypal-btn img { width: auto; height: 70%; }
+.klarna-btn img { width: 60%; height: 220%; display: block; }
+
+.paypal-btn:hover,
+.klarna-btn:hover { filter: brightness(1.1); }
+.paypal-btn:active,
+.klarna-btn:active { transform: scale(0.98); }
+
+.cart-summary { margin-bottom: 2rem; }
+
+.form-group-inline {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group-inline > div { flex: 1; }
+.form-group-inline input { width: 100%; }
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.cart-table th, .cart-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.cart-total {
+    text-align: right;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+input[type="text"], input[type="email"], input[type="number"] {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #111;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 1rem;
+}
+
+.checkout-btn:hover { background: #333; }
+
+body.dark-mode {
+    background-color: #121212;
+    color: #eee;
+}
+
+body.dark-mode .checkout-container {
+    background-color: #1e1e1e;
+    color: #eee;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .cart-table th,
+body.dark-mode .cart-table td {
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="number"] {
+    background-color: #2a2a2a;
+    color: #eee;
+    border: 1px solid #555;
+}
+
+body.dark-mode .checkout-btn {
+    background: #fff;
+    color: #111;  
+}
+
+body.dark-mode .checkout-btn:hover {
+    background: #eee;
+    color: #111;
+}
+
+
+body.dark-mode .paypal-btn {
+    filter: brightness(0.9);
+}
+
+body.dark-mode .klarna-btn {
+    filter: brightness(0.9);
+}
+</style>
+
+
+<script>
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
+    const paypalButton = document.querySelector(".paypal-btn");
+    const klarnaButton = document.querySelector(".klarna-btn");
+    const creditCardFields = document.getElementById("creditcard-fields");
+
+    function updatePaymentUI() {
+        const selected = document.querySelector('input[name="payment"]:checked').value;
+
+        if (selected === "paypal") {
+            paypalButton.disabled = false;
+            paypalButton.style.opacity = "1";
+        } else {
+            paypalButton.disabled = true;
+            paypalButton.style.opacity = "0.5";
+        }
+
+        if (selected === "klarna") {
+            klarnaButton.disabled = false;
+            klarnaButton.style.opacity = "1";
+        } else {
+            klarnaButton.disabled = true;
+            klarnaButton.style.opacity = "0.5";
+        }
+
+        creditCardFields.style.display = selected === "creditcard" ? "block" : "none";
+    }
+
+    paymentRadios.forEach(radio => {
+        radio.addEventListener("change", updatePaymentUI);
+    });
+
+    updatePaymentUI();
+
+    function redirectToPayPal() {
+        if (!paypalButton.disabled) {
+            window.location.href = "https://www.paypal.com/";
+        }
+    }
+
+    function redirectToKlarna() {
+        if (!klarnaButton.disabled) {
+            window.location.href = "https://www.klarna.com/";
+        }
+    }
+</script>

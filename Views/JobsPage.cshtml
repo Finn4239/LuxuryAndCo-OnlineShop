@@ -2,25 +2,31 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.JobsPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using LuxuryAndCo.OnlineShop.Models
+@using Umbraco.Cms.Core.Models.Blocks
 
 @{
-	Layout = "Master.cshtml";
-	var footerModel = new FooterContentViewModel()
-	{
-		PageTitle = Model.Value<string>("pageTitle"),
-		
-		Sections = new List<Section>
-		{
-			new Section
-			{	
-				Title = ""
-				Content = Model.Value<string>("companyInformations")
-			},
-			
-		}
-	};
+    Layout = "Master.cshtml";
+    var jobs = Model.Value<IEnumerable<BlockListItem>>("jobs");
+    
+    var footerModel = new FooterContentViewModel()
+    {
+        PageTitle = Model.Value<string>("pageTitle"),
+        Sections = new List<Section>()
+    };
+    
+    if (jobs != null)
+    {
+        foreach (var job in jobs)
+        {
+            footerModel.Sections.Add(new Section
+            {
+                Title = job.Content.Value<string>("jobName"),
+                Content = job.Content.Value<string>("jobDescription")
+            });
+        }
+    }
 }
 
 <section class="contact-container">
-	@await Html.PartialAsync("~/Views/Partials/PageContentTemplate/FooterContentTemplate.cshtml", footerModel)
+    @await Html.PartialAsync("~/Views/Partials/PageContentTemplate/FooterContentTemplate.cshtml", footerModel)
 </section>

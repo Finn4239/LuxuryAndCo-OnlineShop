@@ -1,364 +1,55 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.FaqPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using LuxuryAndCo.OnlineShop.Models
+
 @{
 	Layout = "Master.cshtml";
+	var footerModel = new FooterContentViewModel()
+	{
+		PageTitle = Model.Value<string>("pageTitle"),
+
+		Sections = new List<Section>
+		{
+			new Section
+			{
+				Title = Model.Value<string>("question1"),
+				Content = Model.Value<string>("answer1")
+			},
+			new Section
+			{
+				Title = Model.Value<string>("question2"),
+				Content = Model.Value<string>("answer2")
+			},
+			new Section
+			{
+				Title = Model.Value<string>("question3"),
+				Content = Model.Value<string>("answer3")
+			},
+			new Section
+			{
+				Title = Model.Value<string>("question4"),
+				Content = Model.Value<string>("answer4")
+			},
+			new Section
+			{
+				Title = Model.Value<string>("question5"),
+				Content = Model.Value<string>("answer5")
+			},
+			new Section
+			{
+				Title = Model.Value<string>("question6"),
+				Content = Model.Value<string>("answer6")
+			},
+			new Section
+			{
+				Title = Model.Value<string>("question7"),
+				Content = Model.Value<string>("answer7")
+			}
+		}
+	};
 }
 
-<html>
-	<head>
-	<meta charset="UTF-8">
-	<title>@Model.Value("pageTitle")</title>
-	<!-- Royal Fonts from Google -->
-	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
-	
-	<style>
-		/* Container */
-		.faq-container {
-			max-width: 1250px;
-			margin: 3rem auto;
-			padding: 2rem;
-			background-color: #006039;
-			color: #eee;
-			font-family: 'Cinzel', sans-serif;
-			border-radius: 12px;
-			box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			cursor: pointer;
-		}
-
-		.faq-container:hover {
-			transform: translateY(-15px) scale(1.05);
-			box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
-		}
-
-		/* Header */
-		.faq-header {
-			text-align: center;
-			margin-bottom: 2rem;
-		}
-
-		.faq-header h1 {
-			font-size: 3rem;
-			color: #111;
-			letter-spacing: 2px;
-			margin-bottom: 0.5rem;
-		}
-
-		.faq-header .underline {
-			width: 150px;
-			height: 4px;
-			background-color: #d4af37;
-			margin: 0 auto;
-			border-radius: 2px;
-		}
-
-		/* Intro */
-		.faq-intro {
-			margin-bottom: 2rem;
-		}
-
-		.faq-intro h2 {
-			font-size: 2rem;
-			color: #d4af37;
-			margin-bottom: 0.5rem;
-			letter-spacing: 1px;
-		}
-
-		.faq-intro p {
-			font-family: 'Cinzel', Arial, sans-serif;
-			font-size: 1.1rem;
-			line-height: 1.6;
-			margin: 0;
-			font-size: 23px;
-		}
-
-		/* Search Bar */
-		.faq-search {
-			max-width: 600px;
-			margin: 20px auto;
-			text-align: center;
-		}
-
-		.faq-search input {
-			width: 100%;
-			padding: 10px;
-			border: none;
-			border-radius: 5px;
-			font-family: 'Cinzel', sans-serif;
-			color: #006039;
-			background-color: #eee;
-		}
-
-		/* Category Filters */
-		.category-filter {
-			display: flex;
-			justify-content: center;
-			gap: 10px;
-			margin-bottom: 30px;
-			flex-wrap: wrap;
-		}
-
-		.category-filter button {
-			padding: 10px 20px;
-			border: none;
-			border-radius: 20px;
-			background-color: #d4af37;
-			color: #000;
-			cursor: pointer;
-			transition: background-color 0.3s;
-			font-family: 'Cinzel', sans-serif;
-		}
-
-		.category-filter button.active {
-			background-color: #111;
-			color: #d4af37;
-		}
-
-		/* FAQ Categories */
-		.faq-category {
-			margin-bottom: 30px;
-			text-align: left;
-		}
-
-		.faq-category h3 {
-			font-size: 1.5em;
-			margin-bottom: 20px;
-			color: #d4af37;
-		}
-
-		.accordion-button {
-			font-weight: 500;
-			color: #000;
-			background-color: #d4af37;
-			border: none;
-			font-family: 'Cinzel', sans-serif;
-		}
-
-		.accordion-button:focus {
-			box-shadow: none;
-		}
-
-		.accordion-body {
-			background-color: #006039;
-			color: #eee;
-			padding: 15px;
-			border-radius: 0 0 5px 5px;
-		}
-
-		/* Contact CTA */
-		.contact-cta {
-			text-align: center;
-			margin-top: 30px;
-			color: #d4af37;
-		}
-
-		.contact-cta a {
-			color: #eee;
-			text-decoration: underline;
-		}
-
-	</style>
-</head>
-<body>
-<section class="faq-container">
-	<header class="faq-header">
-		<h1>@Model.Value("pageTitle")</h1>
-		<div class="underline"></div>
-	</header>
-
-	<article class="faq-intro">
-		<h2></h2>
-		<p>@Html.Raw(Model.Value("onlyQuestion"))</p>
-	</article>
-
-	<!-- Search Bar -->
-	<div class="faq-search">
-		<input type="text" id="faqSearch" class="form-control" placeholder="FAQ durchsuchen...">
-	</div>
-
-	<!-- Category Filters -->
-	<div class="category-filter">
-		<button class="filter-btn active" data-category="all">Alle</button>
-		<button class="filter-btn" data-category="products">Produkte</button>
-		<button class="filter-btn" data-category="shipping">Versand</button>
-		<button class="filter-btn" data-category="returns">Rückgabe</button>
-		<button class="filter-btn" data-category="payment">Zahlung</button>
-	</div>
-
-	<!-- FAQ Content -->
-	<div class="faq-content">
-		<!-- Products Category -->
-		<div class="faq-category" data-category="products">
-			<h3>Produkte</h3>
-			<div class="accordion" id="productsAccordion">
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#products1">
-							Wie kann ich die Authentizität der Produkte garantieren?
-						</button>
-					</h2>
-					<div id="products1" class="accordion-collapse collapse show" data-bs-parent="#productsAccordion">
-						<div class="accordion-body">
-							Alle unsere Produkte stammen direkt von autorisierten Herstellern und Lieferanten. Jedes Produkt wird mit einem Echtheitszertifikat geliefert, und wir bieten eine 100%ige Authentizitätsgarantie. Für weitere Informationen kontaktieren Sie uns bitte unter <a href="mailto:support@luxusshop.de">support@luxusshop.de</a>.
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#products2">
-							Sind die Produkte neu oder gebraucht?
-						</button>
-					</h2>
-					<div id="products2" class="accordion-collapse collapse" data-bs-parent="#productsAccordion">
-						<div class="accordion-body">
-							Alle Produkte in unserem Shop sind brandneu und originalverpackt, es sei denn, es ist ausdrücklich als „pre-owned“ oder „vintage“ gekennzeichnet. Solche Artikel werden klar beschrieben und mit detaillierten Zustandsangaben versehen.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Shipping Category -->
-		<div class="faq-category" data-category="shipping">
-			<h3>Versand</h3>
-			<div class="accordion" id="shippingAccordion">
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#shipping1">
-							Welche Versandoptionen gibt es?
-						</button>
-					</h2>
-					<div id="shipping1" class="accordion-collapse collapse show" data-bs-parent="#shippingAccordion">
-						<div class="accordion-body">
-							Wir bieten Standardversand (3-5 Werktage) und Expressversand (1-2 Werktage) innerhalb der EU an. Für Lieferungen außerhalb der EU nutzen wir DHL International. Versandkosten variieren je nach Zielort und werden im Warenkorb angezeigt.
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#shipping2">
-							Kann ich meine Bestellung verfolgen?
-						</button>
-					</h2>
-					<div id="shipping2" class="accordion-collapse collapse" data-bs-parent="#shippingAccordion">
-						<div class="accordion-body">
-							Ja, sobald Ihre Bestellung versandt wird, erhalten Sie eine E-Mail mit einer Tracking-Nummer, die Sie auf der Website unseres Logistikpartners (z. B. DHL) verwenden können, um den Status Ihrer Lieferung zu verfolgen.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Returns Category -->
-		<div class="faq-category" data-category="returns">
-			<h3>Rückgabe</h3>
-			<div class="accordion" id="returnsAccordion">
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#returns1">
-							Wie funktioniert die Rückgabe?
-						</button>
-					</h2>
-					<div id="returns1" class="accordion-collapse collapse show" data-bs-parent="#returnsAccordion">
-						<div class="accordion-body">
-							Sie können Artikel innerhalb von 14 Tagen nach Erhalt zurücksenden. Nutzen Sie unser Online-Rückgabeformular oder kontaktieren Sie uns per E-Mail. Rücksendungen sind kostenfrei, wenn die Ware unbenutzt und in der Originalverpackung ist.
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#returns2">
-							Was passiert, wenn ein Artikel beschädigt ankommt?
-						</button>
-					</h2>
-					<div id="returns2" class="accordion-collapse collapse" data-bs-parent="#returnsAccordion">
-						<div class="accordion-body">
-							Bitte kontaktieren Sie uns innerhalb von 48 Stunden nach Erhalt unter <a href="mailto:support@luxusshop.de">support@luxusshop.de</a> mit Fotos des Schadens. Wir organisieren einen kostenlosen Ersatz oder eine Rückerstattung.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Payment Category -->
-		<div class="faq-category" data-category="payment">
-			<h3>Zahlung</h3>
-			<div class="accordion" id="paymentAccordion">
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#payment1">
-							Welche Zahlungsmethoden akzeptieren Sie?
-						</button>
-					</h2>
-					<div id="payment1" class="accordion-collapse collapse show" data-bs-parent="#paymentAccordion">
-						<div class="accordion-body">
-							Wir akzeptieren Kreditkarten (Visa, MasterCard, AMEX), PayPal, Klarna (Rechnungskauf) und Banküberweisung. Alle Zahlungen sind durch starke Authentifizierung gesichert.
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#payment2">
-							Sind meine Zahlungsdaten sicher?
-						</button>
-					</h2>
-					<div id="payment2" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
-						<div class="accordion-body">
-							Ja, wir verwenden eine verschlüsselte SSL-Verbindung und entsprechen den PCI-DSS-Standards, um Ihre Daten zu schützen. PayPal-Zahlungen nutzen zusätzlich deren Sicherheitsprotokolle.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Contact CTA -->
-		<div class="contact-cta">
-			<p>Noch Fragen? <a href="mailto:support@luxusshop.de">Kontaktieren Sie unseren Kundenservice</a> oder rufen Sie uns an: +49 123 456789.</p>
-		</div>
-	</div>
+<section class="contact-container">
+	@await Html.PartialAsync("~/Views/Partials/PageContentTemplate/FooterContentTemplate.cshtml", footerModel)
 </section>
-<script>
-		// Suchfunktion
-		document.getElementById('faqSearch').addEventListener('input', function(e) {
-			const searchTerm = e.target.value.toLowerCase();
-			const faqItems = document.querySelectorAll('.accordion-item');
-			faqItems.forEach(item => {
-				const question = item.querySelector('.accordion-button').textContent.toLowerCase();
-				const answer = item.querySelector('.accordion-body').textContent.toLowerCase();
-				if (question.includes(searchTerm) || answer.includes(searchTerm)) {
-					item.style.display = 'block';
-				} else {
-					item.style.display = 'none';
-				}
-			});
-		});
-
-		// Kategorie-Filter-Funktion
-		document.querySelectorAll('.filter-btn').forEach(button => {
-			button.addEventListener('click', function() {
-				const category = this.getAttribute('data-category');
-				const categories = document.querySelectorAll('.faq-category');
-				
-				// Aktiven Button aktualisieren
-				document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-				this.classList.add('active');
-
-				// Kategorien ein-/ausblenden
-				categories.forEach(cat => {
-					if (category === 'all' || cat.getAttribute('data-category') === category) {
-						cat.style.display = 'block';
-					} else {
-						cat.style.display = 'none';
-					}
-				});
-			});
-		});
-	</script>
-</body>
-
-</html>

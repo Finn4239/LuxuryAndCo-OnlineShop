@@ -7,7 +7,6 @@ var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
 }
 
 <div class="pdp-container">
-    <!-- LINKSBEREICH: Galerie -->
     <div class="pdp-gallery">
         <div class="pdp-main-img">
             @if(Model.ImageUrls != null && Model.ImageUrls.Any())
@@ -21,17 +20,17 @@ var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
         </div>
 
         <div class="pdp-thumbs">
-            @if(Model.ImageUrls != null && Model.ImageUrls.Count > 1)
+            @if(Model.ImageUrls != null && Model.ImageUrls.Any())
             {
-            @foreach (var img in Model.ImageUrls.Skip(1).Take(3))
-            {
-            <img class="thumb" src="@img" alt="@Model.Name thumbnail" onclick="changeMainImage(this)" />
-            }
+                foreach (var img in Model.ImageUrls)
+                {
+                    <img class="thumb" src="@img" alt="@Model.Name thumbnail" onclick="changeMainImage(this)" />
+                }
             }
         </div>
-    </div>
 
-    <!-- RECHTSBEREICH: Infos -->
+    </div>
+    
     <div class="pdp-info">
         <h2 class="pdp-brand">@Model.Brand</h2>
         <h1 class="pdp-name">@Model.Name</h1>
@@ -55,18 +54,13 @@ var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
         background-position: center;
         background-repeat: no-repeat;
     }
-    
-    body.dark-mode {
-        background-color: black;
-        color: white;
-        .pdp-name{
-            color: black;
-        }
-        .pdp-description{
-            color: black;
-        }
+
+    body.dark-mode .pdp-price,
+    body.dark-mode .pdp-brand,
+    body.dark-mode .pdp-description {
+        color: #eee;
     }
-    /* Container */
+    
     .pdp-container {
         width: 69%;
         display: flex;
@@ -79,8 +73,12 @@ var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
         margin: 2rem auto;
         max-width: 1200px;
     }
-
-    /* Galerie links */
+    
+    body.dark-mode .pdp-container {
+        background-color: #111111;
+        color: #eee;
+    }
+    
     .pdp-gallery {
         flex: 1 1 50%;
         display: flex;
@@ -121,8 +119,7 @@ var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
         transform: scale(1.05);
         border-color: #000;
     }
-
-    /* Infos rechts */
+    
     .pdp-info {
         flex: 1 1 45%;
         display: flex;
