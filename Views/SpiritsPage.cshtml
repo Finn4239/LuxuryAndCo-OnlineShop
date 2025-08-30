@@ -26,7 +26,8 @@
 					Brand = productContent.Value<string>("productBrand"),
 					Name = productContent.Value<string>("productName"),
 					Price = productContent.Value<decimal>("productPrice"),
-					ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
+					ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? "",
+					PdpLink = productContent.Value<IPublishedContent>("pdpLink")
 				};
 
 				@await Html.PartialAsync("Partials/_ProductCard", vm)
@@ -45,7 +46,8 @@
 					Brand = productContent.Value<string>("productBrand"),
 					Name = productContent.Value<string>("productName"),
 					Price = productContent.Value<decimal>("productPrice"),
-					ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
+					ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? "",
+					PdpLink = productContent.Value<IPublishedContent>("pdpLink")
 				};
 
 				@await Html.PartialAsync("Partials/_ProductCard", productCard)

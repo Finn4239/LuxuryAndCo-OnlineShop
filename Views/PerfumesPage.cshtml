@@ -17,13 +17,17 @@
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 		@foreach (var product in products)
 		{
-			var productContent = product.Content;
+			var productContent =  product.Content;
+			
 			var productCard = new ProductCardViewModel {
 				Brand = productContent.Value<string>("productBrand"),
 				Name = productContent.Value<string>("productName"),
 				Price = productContent.Value<decimal>("productPrice"),
-				ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? ""
+				ImageUrl = productContent.Value<IPublishedContent>("productShowImg")?.Url() ?? "",
+				PdpLink = productContent.Value<IPublishedContent>("pdpLink")
 			};
+			
+			
 
 			@await Html.PartialAsync("Partials/_ProductCard", productCard)
 		}

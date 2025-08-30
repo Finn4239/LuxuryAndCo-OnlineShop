@@ -31,6 +31,7 @@
     var perfumesLink = siteSettings.Value<IPublishedContent>("perfumesLink")?.Url(currentCulture);
     var spiritsLink = siteSettings.Value<IPublishedContent>("spiritsLink")?.Url(currentCulture);
     var carsLink = siteSettings.Value<IPublishedContent>("carsLink")?.Url(currentCulture);
+    var cartLink = siteSettings.Value<IPublishedContent>("cartLink")?.Url(currentCulture);
 
     var aboutUsLink = siteSettings.Value<IPublishedContent>("aboutUsLink")?.Url(currentCulture);
     var contactLink = siteSettings.Value<IPublishedContent>("contactLink")?.Url(currentCulture);
@@ -83,7 +84,10 @@
         </button>
       </div>
       
-      <i class="material-symbols-outlined">shopping_cart</i>
+      <a href="@cartLink" class="cart-button">
+        <i class="material-symbols-outlined">shopping_cart</i>
+      </a>
+
     </div>
   </nav>
 </header>

@@ -4,6 +4,7 @@
 @{
 var page = Umbraco.Content(1140);
 var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
+var cartMessage = page.Value<string>("cartMessage");
 }
 
 <div class="pdp-container">
@@ -34,15 +35,20 @@ var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
     <div class="pdp-info">
         <h2 class="pdp-brand">@Model.Brand</h2>
         <h1 class="pdp-name">@Model.Name</h1>
-        <p class="pdp-price">@Model.Price.ToString("C")</p>
+        <p class="pdp-price">$@Model.Price.ToString("N0", new System.Globalization.CultureInfo("de-DE"))</p>
         <div class="pdp-description">@Html.Raw(Model.Description)</div>
-        <button class="pdp-btn">@addToCartText</button>
+        <button class="pdp-btn" onclick="addToCart('@Model.Brand', '@Model.Name')">
+            @addToCartText
+        </button>
     </div>
 </div>
 
 <script>
     function changeMainImage(thumb) {
         document.getElementById("mainProductImage").src = thumb.src;
+    }
+    function addToCart(brand, name) {
+        alert(brand + ' - ' + name + ' @cartMessage');
     }
 </script>
 
@@ -101,8 +107,9 @@ var addToCartText = page?.Value<string>("addToCartButtonName") ?? "Add to Cart";
 
     .pdp-thumbs {
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap; 
         gap: 1rem;
+        justify-content: center;
     }
 
     .pdp-thumbs img {

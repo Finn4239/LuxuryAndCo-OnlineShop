@@ -4,7 +4,7 @@
 @{
     Layout = "Master.cshtml";
     
-    var watchesFolder = Umbraco.Media(1062);
+    var watchesFolder = Umbraco.Media(1238);
     var watchImages = watchesFolder?.Children.Where(x => x.ContentType.Alias == "Image").ToList();
 }
 
@@ -38,7 +38,7 @@
             slides[current].style.display = 'none';
             current = (current + 1) % slides.length;
             slides[current].style.display = 'block';
-        }, 5000); // img changes every 5 seconds
+        }, 5000);
     }
 </script>
 

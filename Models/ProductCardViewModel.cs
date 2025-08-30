@@ -1,4 +1,6 @@
-﻿namespace LuxuryAndCo.OnlineShop.Models;
+﻿using Umbraco.Cms.Core.Models.PublishedContent;
+
+namespace LuxuryAndCo.OnlineShop.Models;
 
 public class ProductCardViewModel
 {
@@ -6,4 +8,5 @@ public class ProductCardViewModel
     public string Name { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public string ImageUrl { get; set; } = string.Empty;
+    public IPublishedContent PdpLink { get; set; }
 }
