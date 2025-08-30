@@ -8,7 +8,7 @@
     var siteSettings = Umbraco.Content("1160");
     var currentCulture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
     
-    var productUrl = siteSettings.Value<IPublishedContent>("purpleRainLink")?.Url(currentCulture);
+     var productUrl = siteSettings.Value<IPublishedContent>("purpleRainLink")?.Url(currentCulture); 
     
 }
 
@@ -26,10 +26,11 @@
             @addToCartText
         </button>
         
-        <a href="@productUrl"
-           class="bg-black text-white px-4 py-1 rounded hover:bg-gray-800 h-10 flex items-center justify-center">
-            @moreInfoText
-        </a>
+         <a href="@(productUrl ?? "#")"
+   class="bg-black text-white px-4 py-1 rounded hover:bg-gray-800 h-10 flex items-center justify-center">
+    @moreInfoText
+</a>
+
       
     </div>
 </div>
